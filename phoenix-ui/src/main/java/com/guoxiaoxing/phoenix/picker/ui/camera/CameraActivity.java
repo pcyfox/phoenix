@@ -11,9 +11,11 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.guoxiaoxing.phoenix.R;
 import com.guoxiaoxing.phoenix.core.common.PhoenixConstant;
@@ -33,6 +35,7 @@ import com.guoxiaoxing.phoenix.picker.ui.camera.widget.CameraSwitchView;
 import com.guoxiaoxing.phoenix.picker.ui.camera.widget.FlashSwitchView;
 import com.guoxiaoxing.phoenix.picker.ui.camera.widget.RecordButton;
 import com.guoxiaoxing.phoenix.picker.ui.picker.PreviewActivity;
+import com.guoxiaoxing.phoenix.picker.util.PictureFileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,6 +54,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     CameraSettingsView mSettingsView;
     FlashSwitchView mFlashSwitchView;
     CameraSwitchView mCameraSwitchView;
+    private long recordingTimeSeconds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         if (getWindow() != null) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+
         setContentView(R.layout.activity_camera);
         setupView();
         setupCameraFragment();
@@ -102,7 +107,6 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                         new OnCameraResultAdapter() {
                             @Override
                             public void onPhotoTaken(byte[] bytes, String filePath) {
-
                                 try {
                                     MediaScannerConnection.scanFile(CameraActivity.this, new String[]{filePath}, null,
                                             new MediaScannerConnection.OnScanCompletedListener() {
@@ -136,6 +140,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
             public void onLongClickStart() {
                 final ICameraFragment cameraFragment = getCameraFragment();
                 cameraFragment.switchCaptureAction(MediaAction.ACTION_VIDEO);
+
                 cameraFragment.startRecordingVideo(DIRECTORY_NAME, "VID_" + System.currentTimeMillis());
             }
 
@@ -145,24 +150,30 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                 cameraFragment.stopRecordingVideo(new OnCameraResultAdapter() {
                     @Override
                     public void onVideoRecorded(String filePath) {
+                        if (recordingTimeSeconds <= 1) {
+                            showToast("录制时间过短");
+                            deleteFile(new File(filePath));
+                            return;
+                        }
 
                         try {
                             MediaScannerConnection.scanFile(CameraActivity.this, new String[]{filePath}, null,
                                     new MediaScannerConnection.OnScanCompletedListener() {
                                         @Override
                                         public void onScanCompleted(String path, Uri uri) {
-
                                         }
                                     });
                         } catch (Exception ignore) {
                         }
 
                         ArrayList<MediaEntity> mediaList = new ArrayList<>();
+
                         MediaEntity mediaEntity = MediaEntity.newBuilder()
                                 .localPath(filePath)
                                 .fileType(MimeType.ofVideo())
                                 .mimeType(MimeType.createVideoType(filePath))
                                 .build();
+
                         mediaList.add(mediaEntity);
                         ImagesObservable.Companion.getInstance().savePreviewMediaList(mediaList);
                         Intent intent = new Intent(CameraActivity.this, PreviewActivity.class);
@@ -174,6 +185,30 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                 cameraFragment.switchCaptureAction(MediaAction.ACTION_PHOTO);
             }
         });
+    }
+
+    private static void deleteFile(File var0) {
+        if (var0 != null) {
+            if (var0.exists()) {
+                if (var0.isDirectory()) {
+                    File[] var1 = var0.listFiles();
+                    if (var1 != null) {
+                        File[] var5 = var1;
+                        int var4 = var1.length;
+
+                        for (int var3 = 0; var3 < var4; ++var3) {
+                            File var2 = var5[var3];
+                            deleteFile(var2);
+                        }
+                    }
+
+                    var0.delete();
+                } else {
+                    var0.delete();
+                }
+            }
+
+        }
     }
 
     private void setupCameraFragment() {
@@ -336,6 +371,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                 }
             });
 
+
             cameraFragment.setTextListener(new CameraVideoRecordTextAdapter() {
                 @Override
                 public void setRecordSizeText(long size, String text) {
@@ -348,7 +384,8 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                 }
 
                 @Override
-                public void setRecordDurationText(String text) {
+                public void setRecordDurationText(String text, long recordingTimeSeconds) {
+                    CameraActivity.this.recordingTimeSeconds = recordingTimeSeconds;
                     mRecordDurationText.setText(text);
                 }
 

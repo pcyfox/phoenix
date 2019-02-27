@@ -278,7 +278,6 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
                 public void run() {
                     // Tzutalin++ 2017/05. If calling release function, it should not be executed
                     if (mContext == null) return;
-
                     closePreviewSession();
                     if (prepareVideoRecorder()) {
 
@@ -292,16 +291,13 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
                             final Surface previewSurface = mWorkingSurface;
                             surfaces.add(previewSurface);
                             mPreviewRequestBuilder.addTarget(previewSurface);
-
                             mWorkingSurface = mMediaRecorder.getSurface();
                             surfaces.add(mWorkingSurface);
                             mPreviewRequestBuilder.addTarget(mWorkingSurface);
-
                             mCameraDevice.createCaptureSession(surfaces, new CameraCaptureSession.StateCallback() {
                                 @Override
                                 public void onConfigured(@NonNull CameraCaptureSession cameraCaptureSession) {
                                     mCaptureSession = cameraCaptureSession;
-
                                     mPreviewRequestBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
                                     try {
                                         mCaptureSession.setRepeatingRequest(mPreviewRequestBuilder.build(), null, mBackgroundHandler);
@@ -315,7 +311,6 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
                                     }
 
                                     mIsVideoRecording = true;
-
                                     mUiiHandler.post(new Runnable() {
                                         @Override
                                         public void run() {
@@ -349,7 +344,6 @@ public final class Camera2Manager extends BaseCameraManager<String, TextureView.
             }
             mIsVideoRecording = false;
             releaseVideoRecorder();
-
             if (mCameraVideoListener != null) {
                 mCameraVideoListener.onVideoRecordStopped(mOutputPath, callback);
             }

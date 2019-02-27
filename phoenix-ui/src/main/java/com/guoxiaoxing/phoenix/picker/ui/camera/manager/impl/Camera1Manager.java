@@ -213,7 +213,6 @@ public class Camera1Manager extends BaseCameraManager<Integer, SurfaceHolder.Cal
             mBackgroundHandler.post(new Runnable() {
                 @Override
                 public void run() {
-
                     try {
                         if (mMediaRecorder != null) mMediaRecorder.stop();
                     } catch (Exception ignore) {
@@ -223,7 +222,6 @@ public class Camera1Manager extends BaseCameraManager<Integer, SurfaceHolder.Cal
 
                     mIsVideoRecording = false;
                     releaseVideoRecorder();
-
                     if (videoListener != null) {
                         mUiiHandler.post(new Runnable() {
                             @Override

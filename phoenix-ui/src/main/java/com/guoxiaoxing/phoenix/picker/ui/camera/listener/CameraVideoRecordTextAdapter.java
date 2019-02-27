@@ -16,7 +16,7 @@ public class CameraVideoRecordTextAdapter implements CameraVideoRecordTextListen
     }
 
     @Override
-    public void setRecordDurationText(String text) {
+    public void setRecordDurationText(String text,long millisecond) {
 
     }
 

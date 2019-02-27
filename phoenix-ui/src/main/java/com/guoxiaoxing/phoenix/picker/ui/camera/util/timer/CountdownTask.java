@@ -15,9 +15,7 @@ public class CountdownTask extends TimerTaskBase implements Runnable {
 
     @Override
     public void run() {
-
         recordingTimeSeconds--;
-
         int millis = (int) recordingTimeSeconds * 1000;
 
         if (callback != null) {
@@ -26,7 +24,7 @@ public class CountdownTask extends TimerTaskBase implements Runnable {
                             TimeUnit.MILLISECONDS.toMinutes(millis),
                             TimeUnit.MILLISECONDS.toSeconds(millis) -
                                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
-                    ));
+                    ),TimeUnit.MILLISECONDS.toSeconds(millis));
         }
 
         if (alive && recordingTimeSeconds > 0) handler.postDelayed(this, DateUtils.SECOND);
@@ -50,7 +48,7 @@ public class CountdownTask extends TimerTaskBase implements Runnable {
                             TimeUnit.MILLISECONDS.toMinutes(maxDurationMilliseconds),
                             TimeUnit.MILLISECONDS.toSeconds(maxDurationMilliseconds) -
                                     TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(maxDurationMilliseconds))
-                    ));
+                    ),TimeUnit.MILLISECONDS.toSeconds(maxDurationMilliseconds));
             callback.setTextVisible(true);
         }
         handler.postDelayed(this, DateUtils.SECOND);

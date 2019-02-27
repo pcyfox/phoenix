@@ -14,6 +14,7 @@ import android.os.Handler
 import android.os.Message
 import android.util.AttributeSet
 import android.util.DisplayMetrics
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -90,6 +91,7 @@ class PhoenixVideoView : RelativeLayout {
     }
 
     fun onResume() {
+        Log.d("PhoenixVideoView","onResume------------------>")
         videoView.seekTo(videoPos)
         videoView.resume()
     }
@@ -98,6 +100,7 @@ class PhoenixVideoView : RelativeLayout {
         videoView.stopPlayback()
         mContext.unregisterReceiver(volumeReceiver)
     }
+
 
     fun seekTo(position: Int) {
         videoView.seekTo(position)

@@ -6,7 +6,7 @@ import android.os.Looper;
 public abstract class TimerTaskBase {
 
     public interface Callback {
-        void setText(String text);
+        void setText(String text,long recordingTimeSeconds);
         void setTextVisible(boolean visible);
     }
 

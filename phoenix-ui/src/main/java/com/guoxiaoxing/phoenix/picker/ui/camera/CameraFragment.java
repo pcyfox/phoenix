@@ -98,9 +98,9 @@ public class CameraFragment<CameraId> extends BaseFragment implements ICameraFra
 
     private final TimerTaskBase.Callback mTimerCallBack = new TimerTaskBase.Callback() {
         @Override
-        public void setText(String text) {
+        public void setText(String text,long recordingTimeSeconds) {
             if (mCameraVideoRecordTextListener != null) {
-                mCameraVideoRecordTextListener.setRecordDurationText(text);
+                mCameraVideoRecordTextListener.setRecordDurationText(text,recordingTimeSeconds);
             }
         }
 

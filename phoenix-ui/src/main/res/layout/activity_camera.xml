@@ -20,9 +20,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
             android:paddingTop="10dp">
 
             <com.guoxiaoxing.phoenix.picker.ui.camera.widget.CameraSettingsView
@@ -30,16 +30,16 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
-                android:visibility="gone"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp" />
+                android:layout_marginLeft="15dp"
+                android:visibility="gone" />
 
             <com.guoxiaoxing.phoenix.picker.ui.camera.widget.FlashSwitchView
                 android:id="@+id/flash_switch_view"
                 android:layout_width="40dp"
-                android:visibility="gone"
                 android:layout_height="40dp"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
 
             <com.guoxiaoxing.phoenix.picker.ui.camera.widget.CameraSwitchView
                 android:id="@+id/front_back_camera_switcher"
@@ -54,16 +54,27 @@
         <RelativeLayout
             android:id="@+id/record_panel"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
             android:background="@android:color/transparent">
 
+            <TextView
+                android:id="@+id/tv_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="轻按拍照，长按摄像"
+                android:textColor="@android:color/white"
+                android:textSize="16dp" />
+
             <com.guoxiaoxing.phoenix.picker.ui.camera.widget.RecordButton
+                android:layout_marginTop="10dp"
                 android:id="@+id/record_button"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
+                android:layout_below="@+id/tv_tip"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp" />

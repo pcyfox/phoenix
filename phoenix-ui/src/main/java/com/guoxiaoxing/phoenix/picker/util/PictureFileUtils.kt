@@ -563,7 +563,7 @@ object PictureFileUtils {
         try {
             if (!TextUtils.isEmpty(path)) {
                 val file = File(path)
-                file?.delete()
+                file.delete()
             }
         } catch (e: Exception) {
             e.printStackTrace()

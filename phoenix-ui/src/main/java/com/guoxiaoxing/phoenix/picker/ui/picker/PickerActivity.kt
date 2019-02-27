@@ -49,13 +49,10 @@ import java.util.*
  */
 class PickerActivity : BaseActivity(), View.OnClickListener, PickerAlbumAdapter.OnItemClickListener,
         PickerAdapter.OnPickChangedListener {
-
     private val TAG = PickerActivity::class.java.simpleName
-
     private lateinit var pickAdapter: PickerAdapter
     private var allMediaList: MutableList<MediaEntity> = ArrayList()
     private var allFolderList: MutableList<MediaFolder> = ArrayList()
-
     private var isAnimation = false
     private lateinit var folderWindow: FolderPopWindow
     private var animation: Animation? = null
@@ -100,7 +97,6 @@ class PickerActivity : BaseActivity(), View.OnClickListener, PickerAlbumAdapter.
         rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(object : Observer<Boolean> {
                     override fun onSubscribe(d: Disposable) {}
-
                     override fun onNext(aBoolean: Boolean) {
                         if (aBoolean) {
                             setContentView(R.layout.activity_picker)
@@ -307,13 +303,14 @@ class PickerActivity : BaseActivity(), View.OnClickListener, PickerAlbumAdapter.
     override fun onTakePhoto() {
         // 启动相机拍照,先判断手机是否有拍照权限
         rxPermissions.request(Manifest.permission.CAMERA).subscribe(object : Observer<Boolean> {
+
             override fun onSubscribe(d: Disposable) {
 
             }
 
             override fun onNext(aBoolean: Boolean) {
                 if (aBoolean) {
-                    startCamera()
+                    startCamera()//打开拍照页面
                 } else {
                     showToast(getString(R.string.picture_camera))
                     if (enableCamera) {
