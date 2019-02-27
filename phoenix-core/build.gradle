@@ -29,15 +29,13 @@ android {
 }
 
 dependencies {
-    testImplementation "junit:junit:${junitVersion}"
     androidTestImplementation "com.android.support.test:runner:${testRunnerVersion}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${testEspressoVersion}"
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-
+    
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
-
     api "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJavaVersion"
     api "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxAndroidVersion"
 }
