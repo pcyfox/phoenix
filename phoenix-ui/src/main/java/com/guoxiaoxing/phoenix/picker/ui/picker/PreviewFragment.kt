@@ -75,17 +75,6 @@ class PreviewFragment : BaseFragment(), View.OnClickListener, Animation.Animatio
         setupData()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -328,10 +317,10 @@ class PreviewFragment : BaseFragment(), View.OnClickListener, Animation.Animatio
             val mediaEntity = allMediaList[position]
             val mimeType = mediaEntity.mimeType
             val isVideo: Boolean
-            if (TextUtils.isEmpty(mimeType)) {
-                isVideo = mediaEntity.fileType == MimeType.ofVideo()
+            isVideo = if (TextUtils.isEmpty(mimeType)) {
+                mediaEntity.fileType == MimeType.ofVideo()
             } else {
-                isVideo = mimeType.startsWith(PhoenixConstant.VIDEO)
+                mimeType.startsWith(PhoenixConstant.VIDEO)
             }
 
             val path = if (TextUtils.isEmpty(mediaEntity.finalPath))
@@ -345,7 +334,8 @@ class PreviewFragment : BaseFragment(), View.OnClickListener, Animation.Animatio
 
                 preview_video.register(activity!!)
                 preview_video.setVideoPath(path)
-                preview_video.seekTo(100)
+               // preview_video.onResume()
+               preview_video.seekTo(100)
 
                 preview_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                     override fun onPageScrollStateChanged(state: Int) {

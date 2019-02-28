@@ -27,7 +27,6 @@ class PreviewActivity : BaseActivity() {
         bundle.putInt(PhoenixConstant.KEY_PREVIEW_TYPE, previewType)
         bundle.putParcelableArrayList(PhoenixConstant.KEY_PICK_LIST, pickedMediaList as ArrayList<out Parcelable>)
         fragment.arguments = bundle
-
         supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.preview_fragment_container, fragment)

@@ -49,7 +49,8 @@ class PhoenixVideoView : RelativeLayout {
 
     constructor(context: Context) : super(context, null)
 
-    @JvmOverloads constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
+    @JvmOverloads
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
         this.mContext = context
         setupView()
         setupData()
@@ -58,9 +59,9 @@ class PhoenixVideoView : RelativeLayout {
 
     override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
         super.onWindowFocusChanged(hasWindowFocus)
-        if(hasWindowFocus){
+        if (hasWindowFocus) {
             onResume()
-        }else{
+        } else {
             onPause()
         }
     }
@@ -86,24 +87,29 @@ class PhoenixVideoView : RelativeLayout {
     fun onPause() {
         videoPos = videoView.currentPosition
         videoView.stopPlayback()
+        Log.d("PhoenixVideoView", "onPause stopPlayback-----------"+mVideoPath)
         mHandler.removeMessages(UPDATE_PROGRESS)
         ivPlay.setImageResource(R.drawable.phoenix_video_play_center)
     }
 
     fun onResume() {
-        Log.d("PhoenixVideoView","onResume------------------>")
+        if (videoPos == 0) return
+        Log.d("PhoenixVideoView", "onResume seekTo-----------"+mVideoPath)
         videoView.seekTo(videoPos)
         videoView.resume()
     }
 
     fun onDestory() {
+        Log.d("onDestory", "stopPlayback -----------"+mVideoPath)
         videoView.stopPlayback()
         mContext.unregisterReceiver(volumeReceiver)
     }
 
-
     fun seekTo(position: Int) {
+        Log.d("PhoenixVideoView", "seekTo seekTo-----------"+mVideoPath)
         videoView.seekTo(position)
+        videoView.resume()
+
     }
 
     private fun setupView() {

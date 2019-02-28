@@ -65,18 +65,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
                 android:text="轻按拍照，长按摄像"
                 android:textColor="@android:color/white"
                 android:textSize="16dp" />
 
             <com.guoxiaoxing.phoenix.picker.ui.camera.widget.RecordButton
-                android:layout_marginTop="10dp"
                 android:id="@+id/record_button"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:layout_below="@+id/tv_tip"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="50dp" />
 
             <TextView

@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.guoxiaoxing.phoenix.R;
 import com.guoxiaoxing.phoenix.core.common.PhoenixConstant;
@@ -35,7 +34,6 @@ import com.guoxiaoxing.phoenix.picker.ui.camera.widget.CameraSwitchView;
 import com.guoxiaoxing.phoenix.picker.ui.camera.widget.FlashSwitchView;
 import com.guoxiaoxing.phoenix.picker.ui.camera.widget.RecordButton;
 import com.guoxiaoxing.phoenix.picker.ui.picker.PreviewActivity;
-import com.guoxiaoxing.phoenix.picker.util.PictureFileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,6 +48,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     RecordButton mRecordButton;
     TextView mRecordDurationText;
     TextView mRecordSizeText;
+    private TextView tvTip;
 
     CameraSettingsView mSettingsView;
     FlashSwitchView mFlashSwitchView;
@@ -91,6 +90,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         mRecordDurationText = (TextView) findViewById(R.id.record_duration_text);
         mRecordSizeText = (TextView) findViewById(R.id.record_size_mb_text);
         mCameraLayout = findViewById(R.id.rl_camera_control);
+        tvTip = findViewById(R.id.tv_tip);
 
         mSettingsView.setOnClickListener(this);
         mFlashSwitchView.setOnClickListener(this);
@@ -101,6 +101,8 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         mRecordButton.setOnRecordButtonListener(new RecordButton.OnRecordButtonListener() {
             @Override
             public void onClick() {
+                tvTip.setVisibility(View.GONE);
+                recordingTimeSeconds = 0;
                 final ICameraFragment cameraFragment = getCameraFragment();
                 cameraFragment.switchCaptureAction(MediaAction.ACTION_PHOTO);
                 cameraFragment.takePicture(DIRECTORY_NAME, "IMG_" + System.currentTimeMillis(),
@@ -131,6 +133,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                                 intent.putParcelableArrayListExtra(PhoenixConstant.KEY_PICK_LIST, mediaList);
                                 intent.putExtra(PhoenixConstant.KEY_PREVIEW_TYPE, PhoenixConstant.TYPE_PREIVEW_FROM_CAMERA);
                                 startActivityForResult(intent, PhoenixConstant.REQUEST_CODE_PREVIEW);
+
                             }
                         }
                 );
@@ -138,21 +141,26 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
 
             @Override
             public void onLongClickStart() {
+                recordingTimeSeconds = 0;
+                tvTip.setVisibility(View.GONE);
                 final ICameraFragment cameraFragment = getCameraFragment();
                 cameraFragment.switchCaptureAction(MediaAction.ACTION_VIDEO);
-
                 cameraFragment.startRecordingVideo(DIRECTORY_NAME, "VID_" + System.currentTimeMillis());
             }
 
             @Override
             public void onLongClickEnd() {
+                tvTip.setVisibility(View.VISIBLE);
                 final ICameraFragment cameraFragment = getCameraFragment();
                 cameraFragment.stopRecordingVideo(new OnCameraResultAdapter() {
                     @Override
-                    public void onVideoRecorded(String filePath) {
-                        if (recordingTimeSeconds <= 1) {
+                    public void onVideoRecorded(final   String filePath) {
+                        Log.d("onLongClickEnd", "filePath: " + filePath);
+                        Log.d("onLongClickEnd", "recordingTimeSeconds: " + recordingTimeSeconds);
+                        if (recordingTimeSeconds < 1) {
                             showToast("录制时间过短");
-                            deleteFile(new File(filePath));
+                            // deleteFile(new File(filePath));
+                            Log.d("onLongClickEnd", "deleteFile: " + filePath);
                             return;
                         }
 
@@ -161,25 +169,26 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                                     new MediaScannerConnection.OnScanCompletedListener() {
                                         @Override
                                         public void onScanCompleted(String path, Uri uri) {
+                                            ArrayList<MediaEntity> mediaList = new ArrayList<>();
+
+                                            MediaEntity mediaEntity = MediaEntity.newBuilder()
+                                                    .localPath(filePath)
+                                                    .fileType(MimeType.ofVideo())
+                                                    .mimeType(MimeType.createVideoType(filePath))
+                                                    .build();
+                                            mediaList.add(mediaEntity);
+
+                                            ImagesObservable.Companion.getInstance().savePreviewMediaList(mediaList);
+                                            Intent intent = new Intent(CameraActivity.this, PreviewActivity.class);
+                                            intent.putParcelableArrayListExtra(PhoenixConstant.KEY_PICK_LIST, mediaList);
+                                            intent.putExtra(PhoenixConstant.KEY_PREVIEW_TYPE, PhoenixConstant.TYPE_PREIVEW_FROM_CAMERA);
+                                            startActivityForResult(intent, PhoenixConstant.REQUEST_CODE_PREVIEW);
+                                            recordingTimeSeconds = 0;
                                         }
                                     });
                         } catch (Exception ignore) {
                         }
 
-                        ArrayList<MediaEntity> mediaList = new ArrayList<>();
-
-                        MediaEntity mediaEntity = MediaEntity.newBuilder()
-                                .localPath(filePath)
-                                .fileType(MimeType.ofVideo())
-                                .mimeType(MimeType.createVideoType(filePath))
-                                .build();
-
-                        mediaList.add(mediaEntity);
-                        ImagesObservable.Companion.getInstance().savePreviewMediaList(mediaList);
-                        Intent intent = new Intent(CameraActivity.this, PreviewActivity.class);
-                        intent.putParcelableArrayListExtra(PhoenixConstant.KEY_PICK_LIST, mediaList);
-                        intent.putExtra(PhoenixConstant.KEY_PREVIEW_TYPE, PhoenixConstant.TYPE_PREIVEW_FROM_CAMERA);
-                        startActivityForResult(intent, PhoenixConstant.REQUEST_CODE_PREVIEW);
                     }
                 });
                 cameraFragment.switchCaptureAction(MediaAction.ACTION_PHOTO);
@@ -190,24 +199,10 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     private static void deleteFile(File var0) {
         if (var0 != null) {
             if (var0.exists()) {
-                if (var0.isDirectory()) {
-                    File[] var1 = var0.listFiles();
-                    if (var1 != null) {
-                        File[] var5 = var1;
-                        int var4 = var1.length;
-
-                        for (int var3 = 0; var3 < var4; ++var3) {
-                            File var2 = var5[var3];
-                            deleteFile(var2);
-                        }
-                    }
-
-                    var0.delete();
-                } else {
+                if (!var0.isDirectory()) {
                     var0.delete();
                 }
             }
-
         }
     }
 
@@ -330,8 +325,9 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
 
                 @Override
                 public void onStopVideoRecord() {
-                    mRecordSizeText.setVisibility(View.GONE);
-//                    mSettingsView.setVisibility(View.VISIBLE);
+                    //    mRecordSizeText.setVisibility(View.GONE);
+                    mSettingsView.setVisibility(View.VISIBLE);
+                    tvTip.setVisibility(View.VISIBLE);
                 }
 
                 @Override
@@ -400,7 +396,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (RESULT_OK != resultCode) return;
-
+        tvTip.setVisibility(View.VISIBLE);
         switch (requestCode) {
             case PhoenixConstant.REQUEST_CODE_PREVIEW:
                 onResult((List<MediaEntity>) data.getSerializableExtra(PhoenixConstant.KEY_PICK_LIST));
