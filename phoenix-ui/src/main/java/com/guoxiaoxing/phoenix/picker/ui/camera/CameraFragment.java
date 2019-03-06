@@ -380,10 +380,10 @@ public class CameraFragment<CameraId> extends BaseFragment implements ICameraFra
                 }
             });
             if (mCameraConfigProvider.getVideoFileSize() > 0)
-                builder.setTitle(String.format(getString(R.string.settings_video_quality_title),
+                builder.setTitle(String.format(getString(R.string.picture_settings_video_quality_title),
                         "(Max " + String.valueOf(mCameraConfigProvider.getVideoFileSize() / (1024 * 1024) + " MB)")));
             else
-                builder.setTitle(String.format(getString(R.string.settings_video_quality_title), ""));
+                builder.setTitle(String.format(getString(R.string.picture_settings_video_quality_title), ""));
         } else {
             builder.setSingleChoiceItems(mPhotoQualities, getPhotoOptionCheckedIndex(), new DialogInterface.OnClickListener() {
                 @Override
@@ -391,10 +391,10 @@ public class CameraFragment<CameraId> extends BaseFragment implements ICameraFra
                     mNewQuality = ((PictureQualityOption) mPhotoQualities[index]).getMediaQuality();
                 }
             });
-            builder.setTitle(R.string.settings_photo_quality_title);
+            builder.setTitle(R.string.picture_settings_photo_quality_title);
         }
 
-        builder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.picture_ok_label, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (mNewQuality > 0 && mNewQuality != mCameraConfigProvider.getMediaQuality()) {
@@ -407,7 +407,7 @@ public class CameraFragment<CameraId> extends BaseFragment implements ICameraFra
                 }
             }
         });
-        builder.setNegativeButton(R.string.cancel_label, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.picture_cancel_label, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
