@@ -41,8 +41,8 @@ dependencies {
 }
 
 publish {
-    userOrg = 'guoxiaoxing'
-    groupId = 'com.github.guoxiaoxing'
+    userOrg = 'pcyfox'
+    groupId = 'com.github.pcyfox'
     artifactId = 'phoenix-core'
     publishVersion = "$rootProject.ext.phoenixCoreVersion"
     desc = 'The one-stop solution for image/video selection, editing and compression on the Android platform.'

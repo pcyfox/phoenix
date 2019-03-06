@@ -29,14 +29,12 @@ dependencies {
     testImplementation "junit:junit:${junitVersion}"
     androidTestImplementation "com.android.support.test:runner:${testRunnerVersion}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${testEspressoVersion}"
-
-    implementation "com.github.guoxiaoxing:phoenix-core:$rootProject.ext.phoenixCoreVersion"
-//    implementation project(':phoenix-core')
+    implementation project(':phoenix-core')
 }
 
 publish {
-    userOrg = 'guoxiaoxing'
-    groupId = 'com.github.guoxiaoxing'
+    userOrg = 'pcyfox'
+    groupId = 'com.github.pcyfox'
     artifactId = 'phoenix-compress-video'
     publishVersion = "$rootProject.ext.phoenixVerson"
     desc = 'The one-stop solution for image/video selection, editing and compression on the Android platform.'
