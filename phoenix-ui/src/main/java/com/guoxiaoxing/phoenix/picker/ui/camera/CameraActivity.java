@@ -163,7 +163,6 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                             Log.d("onLongClickEnd", "deleteFile: " + filePath);
                             return;
                         }
-
                         try {
                             MediaScannerConnection.scanFile(CameraActivity.this, new String[]{filePath}, null,
                                     new MediaScannerConnection.OnScanCompletedListener() {

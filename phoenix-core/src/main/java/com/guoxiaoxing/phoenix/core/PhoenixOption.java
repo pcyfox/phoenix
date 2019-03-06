@@ -44,6 +44,7 @@ public class PhoenixOption implements Parcelable {
     private int fileType = MimeType.ofImage();
     //是否显示拍照按钮
     private boolean enableCamera = false;
+
     //主题样式，有默认样式、大风车样式、车牛样式、弹个车样式，可定制
     private int theme = THEME_DEFAULT;
     //最大选择张数，默认为0，表示不限制
@@ -74,7 +75,6 @@ public class PhoenixOption implements Parcelable {
     private boolean enableClickSound = true;
     //预览图片时，是否增强左右滑动图片体验
     private boolean previewEggs = true;
-
     //是否开启压缩
     private boolean enableCompress;
     //视频压缩阈值（多少kb以下的视频不进行压缩，默认2048kb）

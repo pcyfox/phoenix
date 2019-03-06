@@ -69,13 +69,17 @@ class RecycleViewDivider
 
 
     //获取分割线尺寸
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+
+
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         outRect.set(0, 0, 0, mDividerHeight)
     }
 
+
     //绘制分割线
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
+
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
         if (mOrientation == LinearLayoutManager.VERTICAL) {
             drawVertical(c, parent)
@@ -83,6 +87,8 @@ class RecycleViewDivider
             drawHorizontal(c, parent)
         }
     }
+
+
 
     //绘制横向 item 分割线
     private fun drawHorizontal(canvas: Canvas, parent: RecyclerView) {

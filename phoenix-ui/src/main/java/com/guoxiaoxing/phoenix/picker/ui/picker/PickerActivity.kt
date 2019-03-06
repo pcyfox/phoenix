@@ -13,6 +13,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import com.eims.rxpermissionlib.rxpermissions2.RxPermissions
 import com.guoxiaoxing.phoenix.R
 import com.guoxiaoxing.phoenix.picker.ui.camera.CameraActivity
 import com.guoxiaoxing.phoenix.core.PhoenixOption.THEME_DEFAULT
@@ -28,7 +29,7 @@ import com.guoxiaoxing.phoenix.picker.rx.bus.ImagesObservable
 import com.guoxiaoxing.phoenix.picker.rx.bus.RxBus
 import com.guoxiaoxing.phoenix.picker.rx.bus.Subscribe
 import com.guoxiaoxing.phoenix.picker.rx.bus.ThreadMode
-import com.guoxiaoxing.phoenix.picker.rx.permission.RxPermissions
+
 import com.guoxiaoxing.phoenix.picker.ui.BaseActivity
 import com.guoxiaoxing.phoenix.picker.ui.Navigator
 import com.guoxiaoxing.phoenix.picker.util.*
