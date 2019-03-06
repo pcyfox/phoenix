@@ -43,7 +43,7 @@ publish {
     artifactId = 'phoenix'
     publishVersion = "$rootProject.ext.phoenixVerson"
     desc = 'The one-stop solution for image/video selection, editing and compression on the Android platform.'
-    website = 'https://github.com/guoxiaoxing/phoenix'
+    website = 'https://github.com/pcyfox/phoenix'
 }
 repositories {
     mavenCentral()

@@ -46,5 +46,5 @@ publish {
     artifactId = 'phoenix-core'
     publishVersion = "$rootProject.ext.phoenixCoreVersion"
     desc = 'The one-stop solution for image/video selection, editing and compression on the Android platform.'
-    website = 'https://github.com/guoxiaoxing/phoenix'
+    website = 'https://github.com/pcyfox/phoenix'
 }
