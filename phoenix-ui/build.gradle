@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin:'com.github.dcendents.android-maven'
+group="pcyfox"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -37,14 +38,7 @@ dependencies {
    api project(':phoenix-core')
 }
 
-publish {
-    userOrg = 'pcyfox'
-    groupId = 'com.github.pcyfox'
-    artifactId = 'phoenix'
-    publishVersion = "$rootProject.ext.phoenixVerson"
-    desc = 'The one-stop solution for image/video selection, editing and compression on the Android platform.'
-    website = 'https://github.com/pcyfox/phoenix'
-}
+
 repositories {
     mavenCentral()
 }
