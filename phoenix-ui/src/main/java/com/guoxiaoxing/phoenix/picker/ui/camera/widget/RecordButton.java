@@ -68,11 +68,12 @@ public class RecordButton extends View {
     private int recordState;
     private OnRecordButtonListener onRecordButtonListener;
 
+
     private RecordButtonHandler.Task updateUITask = new RecordButtonHandler.Task() {
         public void run() {
             long timeLapse = System.currentTimeMillis() - btnPressTime;
             float percent = (float) (timeLapse - TIME_TO_START_RECORD) / (timeLimit + 1000);
-            if (timeLapse >= TIME_TO_START_RECORD) {
+            if (timeLapse >= TIME_TO_START_RECORD && recordable) {
                 synchronized (RecordButton.this) {
                     if (recordState == RECORD_NOT_STARTED) {
                         recordState = RECORD_STARTED;
@@ -81,7 +82,6 @@ public class RecordButton extends View {
                         }
                     }
                 }
-                if (!recordable) return;
                 centerCirclePaint.setColor(colorRecord);
                 outMostWhiteCirclePaint.setColor(colorWhite);
                 percentInDegree = (360.0F * percent);
@@ -123,6 +123,7 @@ public class RecordButton extends View {
         mContext = context;
         setup();
     }
+
 
     void setup() {
         touchable = recordable = true;
@@ -207,7 +208,9 @@ public class RecordButton extends View {
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.d(TAG, "onTouchEvent: down");
-                startTicking();
+                if (!isRecordable()) {
+                    startTicking();
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.d(TAG, "onTouchEvent: move");
@@ -222,7 +225,6 @@ public class RecordButton extends View {
     }
 
     public void reset() {
-        //Log.d(TAG, "reset: "+recordState);
         synchronized (RecordButton.this) {
             if (recordState == RECORD_STARTED) {
                 if (onRecordButtonListener != null)

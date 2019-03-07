@@ -54,6 +54,8 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     FlashSwitchView mFlashSwitchView;
     CameraSwitchView mCameraSwitchView;
     private long recordingTimeSeconds;
+    private boolean booleanCanRecordVideo = true;
+    private boolean locked = false;//解决拍照按钮快速重复点击问题
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +85,12 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void setupView() {
-        mSettingsView = (CameraSettingsView) findViewById(R.id.settings_view);
-        mFlashSwitchView = (FlashSwitchView) findViewById(R.id.flash_switch_view);
-        mCameraSwitchView = (CameraSwitchView) findViewById(R.id.front_back_camera_switcher);
-        mRecordButton = (RecordButton) findViewById(R.id.record_button);
-        mRecordDurationText = (TextView) findViewById(R.id.record_duration_text);
-        mRecordSizeText = (TextView) findViewById(R.id.record_size_mb_text);
+        mSettingsView = findViewById(R.id.settings_view);
+        mFlashSwitchView = findViewById(R.id.flash_switch_view);
+        mCameraSwitchView = findViewById(R.id.front_back_camera_switcher);
+        mRecordButton = findViewById(R.id.record_button);
+        mRecordDurationText = findViewById(R.id.record_duration_text);
+        mRecordSizeText = findViewById(R.id.record_size_mb_text);
         mCameraLayout = findViewById(R.id.rl_camera_control);
         tvTip = findViewById(R.id.tv_tip);
 
@@ -98,17 +100,26 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         mCameraLayout.setOnClickListener(this);
 
         mRecordButton.setTimeLimit(option.getRecordVideoTime() * 1000);
+        booleanCanRecordVideo = option.isBooleanCanRecordVideo();
+        mRecordButton.setRecordable(booleanCanRecordVideo);
+        if (booleanCanRecordVideo) {
+            tvTip.setVisibility(View.VISIBLE);
+        }
+
         mRecordButton.setOnRecordButtonListener(new RecordButton.OnRecordButtonListener() {
             @Override
             public void onClick() {
+                if(locked)return;
                 tvTip.setVisibility(View.GONE);
                 recordingTimeSeconds = 0;
                 final ICameraFragment cameraFragment = getCameraFragment();
                 cameraFragment.switchCaptureAction(MediaAction.ACTION_PHOTO);
+                locked=true;
                 cameraFragment.takePicture(DIRECTORY_NAME, "IMG_" + System.currentTimeMillis(),
                         new OnCameraResultAdapter() {
                             @Override
                             public void onPhotoTaken(byte[] bytes, String filePath) {
+                                locked=false;
                                 try {
                                     MediaScannerConnection.scanFile(CameraActivity.this, new String[]{filePath}, null,
                                             new MediaScannerConnection.OnScanCompletedListener() {
@@ -150,11 +161,12 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
 
             @Override
             public void onLongClickEnd() {
+                if (!booleanCanRecordVideo) return;
                 tvTip.setVisibility(View.VISIBLE);
                 final ICameraFragment cameraFragment = getCameraFragment();
                 cameraFragment.stopRecordingVideo(new OnCameraResultAdapter() {
                     @Override
-                    public void onVideoRecorded(final   String filePath) {
+                    public void onVideoRecorded(final String filePath) {
                         Log.d("onLongClickEnd", "filePath: " + filePath);
                         Log.d("onLongClickEnd", "recordingTimeSeconds: " + recordingTimeSeconds);
                         if (recordingTimeSeconds < 1) {
@@ -245,6 +257,7 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
                 .setCamera(CameraConfig.CAMERA_FACE_REAR).build());
         Bundle bundle = new Bundle();
         bundle.putParcelable(PhoenixConstant.PHOENIX_OPTION, option);
+
         cameraFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, cameraFragment, TAG_CAMERA_FRAGMENT)

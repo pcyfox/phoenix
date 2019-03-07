@@ -81,9 +81,11 @@ public class PhoenixOption implements Parcelable {
     private int compressVideoFilterSize = 2048;
     //图片压缩阈值（多少kb以下的图片不进行压缩，默认1024kb）
     private int compressPictureFilterSize = 1024;
-
     //已选择的数据、图片/视频/音频预览的数据
     private List<MediaEntity> pickedMediaList = new ArrayList<>();
+    //拍照页面是否允许长按录像
+    private boolean booleanCanRecordVideo = false;
+
 
     //拍照、视频的保存地址
     private String savePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
@@ -95,6 +97,7 @@ public class PhoenixOption implements Parcelable {
     public int getFileType() {
         return fileType;
     }
+
 
     public boolean isEnableCamera() {
         return enableCamera;
@@ -290,6 +293,12 @@ public class PhoenixOption implements Parcelable {
         return this;
     }
 
+    public PhoenixOption setBooleanCanRecordVideo(boolean booleanCanRecordVideo) {
+        this.booleanCanRecordVideo = booleanCanRecordVideo;
+        return this;
+    }
+
+
     public void start(Fragment fragment, int type, int requestCode) {
         Starter starter = ReflectUtils.loadStarter(ReflectUtils.Phoenix);
         if (starter != null) {
@@ -346,6 +355,7 @@ public class PhoenixOption implements Parcelable {
         dest.writeInt(this.compressVideoFilterSize);
         dest.writeInt(this.compressPictureFilterSize);
         dest.writeTypedList(this.pickedMediaList);
+        dest.writeByte(this.booleanCanRecordVideo ? (byte) 1 : (byte) 0);
         dest.writeString(this.savePath);
     }
 
@@ -371,6 +381,7 @@ public class PhoenixOption implements Parcelable {
         this.compressVideoFilterSize = in.readInt();
         this.compressPictureFilterSize = in.readInt();
         this.pickedMediaList = in.createTypedArrayList(MediaEntity.CREATOR);
+        this.booleanCanRecordVideo = in.readByte() != 0;
         this.savePath = in.readString();
     }
 
