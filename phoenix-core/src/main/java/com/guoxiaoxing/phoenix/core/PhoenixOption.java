@@ -86,6 +86,9 @@ public class PhoenixOption implements Parcelable {
     //拍照页面是否允许长按录像
     private boolean booleanCanRecordVideo = false;
 
+    public boolean isBooleanCanRecordVideo() {
+        return booleanCanRecordVideo;
+    }
 
     //拍照、视频的保存地址
     private String savePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();

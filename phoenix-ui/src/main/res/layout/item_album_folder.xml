@@ -4,25 +4,26 @@
     android:layout_height="wrap_content"
     android:background="@drawable/phoenix_selector_item_background"
     android:orientation="vertical"
-    android:padding="6dp">
+    android:padding="6mm">
 
     <RelativeLayout
         android:id="@+id/rl_first_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="90mm"
         android:layout_centerVertical="true">
 
         <ImageView
             android:id="@+id/first_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="80mm"
+            android:layout_height="80mm" />
 
         <TextView
             android:id="@+id/tv_sign"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_alignParentRight="true"
-            android:layout_margin="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20mm"
+            android:layout_toEndOf="@+id/first_image"
+            android:textSize="30mm"
             android:visibility="invisible" />
 
     </RelativeLayout>
@@ -36,7 +37,7 @@
         android:layout_toRightOf="@id/rl_first_image"
         android:text="相机胶卷"
         android:textColor="@color/color_black_2"
-        android:textSize="16sp" />
+        android:textSize="30mm" />
 
     <TextView
         android:id="@+id/image_num"
@@ -47,5 +48,5 @@
         android:layout_toRightOf="@id/tv_folder_name"
         android:text="(0)"
         android:textColor="@color/color_black_2"
-        android:textSize="14sp" />
+        android:textSize="30mm" />
 </RelativeLayout>

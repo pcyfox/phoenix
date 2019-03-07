@@ -9,6 +9,9 @@ import com.bumptech.glide.Glide;
 import com.guoxiaoxing.phoenix.core.listener.ImageLoader;
 import com.guoxiaoxing.phoenix.picker.Phoenix;
 
+import me.jessyan.autosize.AutoSizeConfig;
+import me.jessyan.autosize.unit.Subunits;
+
 /**
  * For more information, you can visit https://github.com/guoxiaoxing or contact me by
  * guoxiaoxingse@163.com.
@@ -31,6 +34,10 @@ public class App extends MultiDexApplication {
                                 .into(imageView);
                     }
                 });
+
+        AutoSizeConfig.getInstance().getUnitsManager()
+                .setSupportDP(false).setSupportSubunits(Subunits.MM);
+
     }
 
     @Override

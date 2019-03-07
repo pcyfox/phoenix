@@ -15,5 +15,5 @@
         android:padding="6dp"
         android:text="@string/editor_drag_to_delete"
         android:textColor="@color/white"
-        android:textSize="12sp" />
+        android:textSize="30mm" />
 </RelativeLayout>

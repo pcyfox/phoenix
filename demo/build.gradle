@@ -51,4 +51,7 @@ dependencies {
     implementation project(':phoenix-compress-video')
     implementation project(':phoenix-core')
     implementation project(':phoenix-ui')
+
+    //今日头条适配方案
+    implementation 'me.jessyan:autosize:1.1.2'
 }

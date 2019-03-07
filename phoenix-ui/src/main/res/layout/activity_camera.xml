@@ -36,15 +36,15 @@
 
             <com.guoxiaoxing.phoenix.picker.ui.camera.widget.FlashSwitchView
                 android:id="@+id/flash_switch_view"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="40mm"
+                android:layout_height="40mm"
                 android:layout_centerInParent="true"
                 android:visibility="gone" />
 
             <com.guoxiaoxing.phoenix.picker.ui.camera.widget.CameraSwitchView
                 android:id="@+id/front_back_camera_switcher"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="40mm"
+                android:layout_height="40mm"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp" />
@@ -73,13 +73,11 @@
 
             <com.guoxiaoxing.phoenix.picker.ui.camera.widget.RecordButton
                 android:id="@+id/record_button"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="75mm"
+                android:layout_height="75mm"
                 android:layout_below="@+id/tv_tip"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="50dp" />
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/record_duration_text"
@@ -88,7 +86,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/record_button"
                 android:textColor="@android:color/white"
-                android:textSize="14dp"
+                android:textSize="26mm"
                 android:visibility="invisible" />
 
             <TextView
@@ -98,7 +96,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/record_button"
                 android:textColor="@android:color/white"
-                android:textSize="14dp"
+                android:textSize="26mm"
                 android:visibility="invisible" />
 
         </RelativeLayout>

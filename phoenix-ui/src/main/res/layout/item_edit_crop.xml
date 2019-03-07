@@ -39,7 +39,7 @@
             android:padding="8dp"
             android:text="@string/editor_restore"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="30mm" />
 
         <ImageView
             android:id="@+id/ivCropConfirm"

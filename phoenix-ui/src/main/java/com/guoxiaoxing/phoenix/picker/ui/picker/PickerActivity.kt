@@ -90,6 +90,7 @@ class PickerActivity : BaseActivity(), View.OnClickListener, PickerAlbumAdapter.
         super.onCreate(savedInstanceState)
         ToolbarUtil.setColorNoTranslucent(this, themeColor)
         LightStatusBarUtils.setLightStatusBar(this, false)
+
         if (!RxBus.default.isRegistered(this)) {
             RxBus.default.register(this)
         }
@@ -239,7 +240,7 @@ class PickerActivity : BaseActivity(), View.OnClickListener, PickerAlbumAdapter.
             }
         }
         if (id == R.id.pickTvTitle) {
-            if (folderWindow.isShowing()) {
+            if (folderWindow.isShowing) {
                 folderWindow.dismiss()
             } else {
                 if (allMediaList.size > 0) {
@@ -279,12 +280,7 @@ class PickerActivity : BaseActivity(), View.OnClickListener, PickerAlbumAdapter.
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         //processMedia(allMediaList)   //我觉得这行代码没啥用
-
         if (Activity.RESULT_OK != resultCode) return
-
-//        val result = data!!.getSerializableExtra(PhoenixConstant.PHOENIX_RESULT) as MutableList<MediaEntity>
-//        DebugUtil.i("PickerActivity:OnResult: ", result.size.toString())
-//        DebugUtil.i("PickerActivity:OnResult: ", option.maxPickNumber.toString())
 
         when (requestCode) {
             PhoenixConstant.REQUEST_CODE_CAPTURE -> {

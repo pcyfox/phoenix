@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="70mm">
 
         <TextView
             android:id="@+id/tvCancel"
@@ -25,7 +25,7 @@
             android:paddingTop="6dp"
             android:text="@string/editor_cancel"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
+            android:textSize="32mm"
             android:visibility="visible" />
 
         <TextView
@@ -41,7 +41,7 @@
             android:paddingTop="6dp"
             android:text="@string/editor_complete"
             android:textColor="@color/green"
-            android:textSize="16sp"
+            android:textSize="32mm"
             android:visibility="visible" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
