@@ -80,6 +80,7 @@
                 android:layout_marginTop="10dp" />
 
             <TextView
+                android:paddingEnd="40mm"
                 android:id="@+id/record_duration_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,6 +91,7 @@
                 android:visibility="invisible" />
 
             <TextView
+                android:paddingStart="40mm"
                 android:id="@+id/record_size_mb_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

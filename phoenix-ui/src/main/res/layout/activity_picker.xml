@@ -22,11 +22,12 @@
         android:layout_marginRight="2dp" />
 
     <RelativeLayout
+        android:paddingEnd="@dimen/phoenix_dimen_20"
+        android:paddingStart="@dimen/phoenix_dimen_20"
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
         android:layout_height="90mm"
         android:layout_alignParentBottom="true"
-        android:background="@color/theme_color_black"
         android:gravity="center_vertical">
 
         <TextView
@@ -36,18 +37,17 @@
             android:layout_centerVertical="true"
             android:enabled="false"
             android:gravity="left|center"
-            android:padding="12dp"
+            android:padding="4mm"
             android:text="@string/picture_preview"
-            android:textColor="@color/green"
-            android:textSize="34mm" />
+            android:textColor="@color/blue"
+            android:textSize="@dimen/phoenix_text_16"  />
 
         <LinearLayout
             android:id="@+id/pickLlOk"
-            android:layout_width="84dp"
+            android:layout_width="140mm"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/phoenix_dimen_8"
             android:background="@drawable/phoenix_shape_complete_background"
             android:enabled="false"
             android:gravity="center_vertical"
@@ -62,7 +62,7 @@
                 android:gravity="center"
                 android:text="@string/picture_please_select"
                 android:textColor="@color/white"
-                android:textSize="@dimen/phoenix_text_14" />
+                android:textSize="@dimen/phoenix_text_16" />
 
             <TextView
                 android:id="@+id/pickTvNumber"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/phoenix_text_14"
+                android:textSize="@dimen/phoenix_text_16"
                 android:visibility="gone" />
         </LinearLayout>
     </RelativeLayout>
@@ -86,6 +86,6 @@
         android:lineSpacingExtra="3dp"
         android:text="@string/picture_empty"
         android:textColor="@color/color_gray_1"
-        android:textSize="18sp"
+        android:textSize="30mm"
         android:visibility="invisible" />
 </RelativeLayout>

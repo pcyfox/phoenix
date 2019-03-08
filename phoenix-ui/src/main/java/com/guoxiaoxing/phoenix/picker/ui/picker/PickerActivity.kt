@@ -68,7 +68,6 @@ class PickerActivity : BaseActivity(), View.OnClickListener, PickerAlbumAdapter.
                 val selectImages = obj.mediaEntities
                 isAnimation = selectImages.size > 0
                 val position = obj.position
-                DebugUtil.i(TAG, "刷新下标::" + position)
                 pickAdapter.setPickMediaList(selectImages)
                 //通知点击项发生了改变
                 val isExceedMax = selectImages.size >= maxSelectNum && maxSelectNum != 0
@@ -346,7 +345,7 @@ class PickerActivity : BaseActivity(), View.OnClickListener, PickerAlbumAdapter.
             pickLlOk.isEnabled = true
             pickLlOk.alpha = 1F
             pickTvPreview.isEnabled = true
-            pickTvPreview.setTextColor(if (themeColor == THEME_DEFAULT) ContextCompat.getColor(mContext, R.color.green) else themeColor)
+            pickTvPreview.setTextColor(if (themeColor == THEME_DEFAULT) ContextCompat.getColor(mContext, R.color.blue) else themeColor)
             if (!isAnimation) {
                 pickTvNumber.startAnimation(animation)
             }

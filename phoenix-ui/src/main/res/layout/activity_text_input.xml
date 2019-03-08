@@ -27,7 +27,7 @@
             android:layout_alignParentRight="true"
             android:padding="10dp"
             android:text="@string/editor_complete"
-            android:textColor="@color/green"
+            android:textColor="@color/blue"
             android:textSize="30mm" />
     </RelativeLayout>
 

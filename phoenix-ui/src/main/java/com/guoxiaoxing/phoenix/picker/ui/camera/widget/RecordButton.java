@@ -208,7 +208,7 @@ public class RecordButton extends View {
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.d(TAG, "onTouchEvent: down");
-                if (!isRecordable()) {
+                if (isRecordable()) {
                     startTicking();
                 }
                 break;

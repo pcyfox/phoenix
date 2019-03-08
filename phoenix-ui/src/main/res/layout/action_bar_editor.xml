@@ -40,7 +40,7 @@
             android:paddingRight="12dp"
             android:paddingTop="6dp"
             android:text="@string/editor_complete"
-            android:textColor="@color/green"
+            android:textColor="@color/blue"
             android:textSize="32mm"
             android:visibility="visible" />
     </RelativeLayout>

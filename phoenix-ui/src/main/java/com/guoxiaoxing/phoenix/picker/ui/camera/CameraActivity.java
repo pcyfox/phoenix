@@ -67,6 +67,17 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.activity_camera);
         setupView();
         setupCameraFragment();
+        booleanCanRecordVideo = option.isBooleanCanRecordVideo();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (booleanCanRecordVideo) {
+            tvTip.setVisibility(View.VISIBLE);
+        }else {
+            tvTip.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -98,13 +109,9 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
         mFlashSwitchView.setOnClickListener(this);
         mCameraSwitchView.setOnClickListener(this);
         mCameraLayout.setOnClickListener(this);
-
         mRecordButton.setTimeLimit(option.getRecordVideoTime() * 1000);
-        booleanCanRecordVideo = option.isBooleanCanRecordVideo();
         mRecordButton.setRecordable(booleanCanRecordVideo);
-        if (booleanCanRecordVideo) {
-            tvTip.setVisibility(View.VISIBLE);
-        }
+
 
         mRecordButton.setOnRecordButtonListener(new RecordButton.OnRecordButtonListener() {
             @Override
@@ -161,7 +168,6 @@ public class CameraActivity extends BaseActivity implements View.OnClickListener
 
             @Override
             public void onLongClickEnd() {
-                if (!booleanCanRecordVideo) return;
                 tvTip.setVisibility(View.VISIBLE);
                 final ICameraFragment cameraFragment = getCameraFragment();
                 cameraFragment.stopRecordingVideo(new OnCameraResultAdapter() {

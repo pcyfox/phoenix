@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements MediaAdapter.OnAd
                 .pickedMediaList(mMediaAdapter.getData())// 已选图片数据
                 .videoFilterTime(30)//显示多少秒以内的视频
                 .mediaFilterSize(10000)//显示多少kb以下的图片/视频，默认为0，表示不限制
+                .setBooleanCanRecordVideo(true)//拍照页面是否允许录像
                 .start(MainActivity.this, PhoenixOption.TYPE_PICK_MEDIA, REQUEST_CODE);
     }
 
