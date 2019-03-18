@@ -1,7 +1,7 @@
 package com.guoxiaoxing.phoenix.picker.rx.bus
 
-interface SubjectListener {
 
+interface SubjectListener {
     fun add(observerListener: ObserverListener)
     fun remove(observerListener: ObserverListener)
 }

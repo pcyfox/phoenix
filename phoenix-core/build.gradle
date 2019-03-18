@@ -4,13 +4,11 @@ group="pcyfox"
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
-
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {

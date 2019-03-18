@@ -23,14 +23,15 @@ import com.guoxiaoxing.phoenix.picker.Phoenix
 import com.guoxiaoxing.phoenix.picker.listener.OnPictureEditListener
 import com.guoxiaoxing.phoenix.picker.model.EventEntity
 import com.guoxiaoxing.phoenix.picker.rx.bus.ImagesObservable
-import com.guoxiaoxing.phoenix.picker.rx.bus.RxBus
-import com.guoxiaoxing.phoenix.picker.rx.bus.Subscribe
-import com.guoxiaoxing.phoenix.picker.rx.bus.ThreadMode
+
 import com.guoxiaoxing.phoenix.picker.ui.BaseFragment
 import com.guoxiaoxing.phoenix.picker.ui.editor.PictureEditFragment
 import com.guoxiaoxing.phoenix.picker.util.*
 import com.guoxiaoxing.phoenix.picker.widget.photoview.PhotoView
 import com.guoxiaoxing.phoenix.picker.widget.videoview.PhoenixVideoView
+import com.pcyfox.rxbus.RxBus
+import com.pcyfox.rxbus.Subscribe
+import com.pcyfox.rxbus.ThreadMode
 import kotlinx.android.synthetic.main.fragment_preview.*
 import java.io.Serializable
 import java.util.*
