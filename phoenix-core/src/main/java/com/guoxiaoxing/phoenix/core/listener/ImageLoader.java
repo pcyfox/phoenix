@@ -3,6 +3,8 @@ package com.guoxiaoxing.phoenix.core.listener;
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 /**
  * For more information, you can visit https://github.com/guoxiaoxing or contact me by
  * guoxiaoxingse@163.com.
@@ -21,4 +23,11 @@ public interface ImageLoader {
      * @param type      the type of handle image, such as rounded corners and so on
      */
     void loadImage(Context context, ImageView imageView, String imagePath, int type);
+
+    class DefaultImageLoader implements ImageLoader {
+        @Override
+        public void loadImage(Context context, ImageView imageView, String imagePath, int type) {
+            Glide.with(context).load(imagePath).into(imageView);
+        }
+    }
 }

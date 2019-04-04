@@ -36,4 +36,5 @@ dependencies {
     implementation 'com.github.pcyfox:P-RxBus:1.0.4'
     implementation 'com.github.pcyfox:P-RxPermission:0,0.1'
     implementation project(':phoenix-core')
+   // implementation 'com.github.pcyfox:phoenix:0.0.23'
 }

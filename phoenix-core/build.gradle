@@ -35,5 +35,6 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     api "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJavaVersion"
     api "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxAndroidVersion"
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
 }
 

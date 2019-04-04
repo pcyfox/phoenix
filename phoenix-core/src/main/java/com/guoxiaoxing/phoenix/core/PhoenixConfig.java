@@ -10,8 +10,7 @@ import com.guoxiaoxing.phoenix.core.listener.ImageLoader;
  * @since 2017/11/19 下午12:15
  */
 public class PhoenixConfig {
-
-    private ImageLoader imageLoader;
+    private ImageLoader imageLoader = new ImageLoader.DefaultImageLoader();
 
     public ImageLoader getImageLoader() {
         return imageLoader;
